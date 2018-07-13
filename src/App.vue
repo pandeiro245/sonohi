@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <img src="https://ruffnote.com/pandeiro245/avatar">
     <h1>{{ msg }}</h1>
     <h2>Essential Links</h2>
     <ul>
@@ -24,7 +24,7 @@ export default {
   name: 'app',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: '西小倉宏信のホームページ'
     }
   }
 }
