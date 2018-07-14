@@ -1,7 +1,10 @@
 <template>
   <div id="app">
-    <img src="https://ruffnote.com/pandeiro245/avatar">
+    <Home v-if="!isLogin"></Home>
+ 　 <Dashboard v-if="isLogin"></Dashboard>
     <h1>{{ msg }}</h1>
+    <p>現在：{{now_at}}</p>
+    <p>その日まで：{{remain}}</p>
     <h2>Essential Links</h2>
     <ul>
       <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
@@ -20,13 +23,36 @@
 </template>
 
 <script>
+import Home from './components/Home.vue';
+import Dashboard from './components/Dashboard.vue';
+
+let now_at = 'aaa'
+let remain = 'bbb'
+
 export default {
   name: 'app',
   data () {
     return {
-      msg: '西小倉宏信のホームページ'
+      msg: '西小倉宏信のホームページ',
+      isLogin: false,
+      now_at: now_at,
+      remain: remain 
     }
-  }
+  },
+  components: {
+    'Home': Home,
+    'Dashboard': Dashboard
+  },
+	created: function() {
+		firebase.auth().onAuthStateChanged(user => {
+			console.log(user);
+			if (user) {
+				this.isLogin = true;
+			} else {
+				this.isLogin = false;
+			};
+		});
+	}
 }
 </script>
 
