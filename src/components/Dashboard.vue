@@ -1,12 +1,11 @@
 <template>
 <div class="dashboard">
-<h1> エディター画面</h1>
 ようこそ{{user.displayName}}さん
 <button @click="logout"> ログアウト</button>
 
-<div class="dashboardWrapper">
+<h3>西小倉宏信にありがとうの気持ちを伝える</h3>
+（開発中。開発できたら下記から登録できるようになるはず）
 <input>
-</div>
 
 </div>
 </template>

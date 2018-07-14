@@ -1,8 +1,6 @@
 <template>
   <div id="home">
-  <img src="https://ruffnote.com/pandeiro245/avatar">
-  <h1>{{ msg }}</h1>
-  <p>みんなの「その日」をみんなで応援</p>
+  <h3>{{ msg }}</h3>
   <button @click="googleLogin">Google アカウントでログイン</button>
   </div>
 </template>
@@ -11,7 +9,7 @@
   name: 'home',
   data () {
     return {
-      msg: 'Sonohi Cloud'
+      msg: 'ログインして巻き込まれてみる'
     }
   },
   methods: {
