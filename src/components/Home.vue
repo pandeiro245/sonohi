@@ -1,7 +1,8 @@
 <template>
   <div id="home">
   <h3>{{ msg }}</h3>
-  <button @click="googleLogin">Google アカウントでログイン</button>
+  <button @click="googleLogin">Googleログイン</button>
+  <button @click="twitterLogin">Twitterログイン</button>
   </div>
 </template>
 <script>
@@ -14,10 +15,11 @@
   },
   methods: {
     googleLogin: function(){
-      console.log(1);
       firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
-      console.log(2);
-    }
+    },
+    twitterLogin: function(){
+      firebase.auth().signInWithRedirect(new firebase.auth.TwitterAuthProvider());
+    },
   }
 }
 </script>
