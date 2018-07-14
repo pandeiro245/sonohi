@@ -6,38 +6,38 @@
 <p>このサイトは西小倉宏信が<br>その日までに3つの目標を達成するために<br />
 たくさんの人を巻き込むことを目的としています。</p>
 
-<hr>
 
 <h3>1. 10万人からの「ありがとう」を集める</h3>
-<table>
+<table class='table table-bordered'>
 <tr>
-<th>18</th>
-<th>19</th>
-<th>20</th>
-<th>21</th>
-<th>22</th>
+<th>2018</th>
+<th>2019</th>
+<th>2020</th>
+<th>2021</th>
+<th>2022</th>
 </tr>
 <tr>
-<td>1</td>
-<td>3</td>
-<td>6</td>
-<td>8</td>
-<td>10</td>
+<td>0 / 10,000</td>
+<td>0 / 20,000</td>
+<td>0 / 40,000</td>
+<td>0 / 60,000</td>
+<td>0 / 100,000</td>
 </tr>
 </table>
 <h3>2. 100人の年収を1,000万円以上にする</h3>
 <p>雇用形態（正社員・業務委託）は問わない</p>
-<table>
+<table class='table table-bordered'>
 <tr>
-<th>18</th>
-<th>19</th>
-<th>20</th>
-<th>21</th>
-<th>22</th>
+<th>2018</th>
+<th>2019</th>
+<th>2020</th>
+<th>2021</th>
+<th>2022</th>
+
 </tr>
 <tr>
 <td>0</td>
-<td>1</td>
+<td>3</td>
 <td>30</td>
 <td>70</td>
 <td>100</td>
@@ -45,16 +45,16 @@
 </table>
 
 <h3>3. 47都道府県に拠点を持つ</h3>
-<table>
+<table class='table table-bordered'>
 <tr>
-<th>18</th>
-<th>19</th>
-<th>20</th>
-<th>21</th>
-<th>22</th>
+<th>2018</th>
+<th>2019</th>
+<th>2020</th>
+<th>2021</th>
+<th>2022</th>
 </tr>
 <tr>
-<td>4</td>
+<td>5</td>
 <td>10</td>
 <td>30</td>
 <td>40</td>
@@ -62,9 +62,8 @@
 </tr>
 </table>
 
-<hr>
 <Home v-if="!isLogin"></Home>
-　 <Dashboard v-if="isLogin" :user="userData"></Dashboard>
+<Dashboard v-if="isLogin" :user="userData"></Dashboard>
 </div>
 </template>
 
@@ -107,33 +106,7 @@ export default {
 
 <style lang="scss">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
-
-table {
-  margin: 0 auto;
-}
 </style>
