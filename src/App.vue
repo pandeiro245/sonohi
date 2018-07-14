@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Home v-if="!isLogin"></Home>
- 　 <Dashboard v-if="isLogin"></Dashboard>
+ 　 <Dashboard v-if="isLogin" :user="userData"></Dashboard>
     <h1>{{ msg }}</h1>
     <p>現在：{{now_at}}</p>
     <p>その日まで：{{remain}}</p>
@@ -35,6 +35,7 @@ export default {
     return {
       msg: '西小倉宏信のホームページ',
       isLogin: false,
+      userData: null,
       now_at: now_at,
       remain: remain 
     }
@@ -48,8 +49,10 @@ export default {
 			console.log(user);
 			if (user) {
 				this.isLogin = true;
+        this.userData = user;
 			} else {
 				this.isLogin = false;
+        this.userData = null;
 			};
 		});
 	}
