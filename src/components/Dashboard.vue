@@ -44,10 +44,8 @@ export default {
     return {
       message: "",
       userName: localStorage['username'],
-      userId: Math.random().toString(36).slice(-8),
+      userId: localStorage['uid'],
       messageList: [],
-      developerName: "nakadoriBooks",
-      developerSite: "https://twitter.com/nakadoribooks"
     }
   },
   created: function(){
@@ -59,67 +57,39 @@ export default {
       firebase.auth().signOut();
     },
 
-    // チャット読み込み
     setupChat: function(){
-        let ref = firebase.database().ref('chats')
-        let hash = location.hash
-
-        this.chatRef = ref.child('-LHWNhpfYW2ak1lGRHK-')
-        // chatId があったとき
-        // if(hash != null && hash.length > 0){
-        //     let chatId = hash.slice( 1 ) ;
-        //     this.chatRef = ref.child(chatId)
-        //     console.log("read chat", chatId)
-        // }
-        // なかったとき
-        // else{
-        //     let createdAt = this.timestamp()
-
-        //     // 新しいチャットを作って
-        //     this.chatRef = ref.push()
-
-        //     // 保存する
-        //     this.chatRef.set({
-        //         createdAt: createdAt
-        //         , createdAtReverse: -createdAt
-        //     })
-
-        //     location.href = location.origin + location.pathname + "#" + this.chatRef.key
-        //     console.log("create chat", this.chatRef.key)
-        // }
+      let hash = location.hash
+      let ref = firebase.database().ref('chats')
+      if(hash != null || hash.length == 0){
+        hash = '20180716'
+        location.hash = hash
+      }
+      this.chatRef = ref.child(hash)
     },
 
-    // メッセージを送る
     send: function(event){
-        if(this.message.length == 0){
-            return;
-        }
+      if(this.message.length == 0){
+          return;
+      }
 
-        // 新しいメッセージを作って
-        let messageRef = firebase.database().ref('messages').push()
-        let createdAt = this.timestamp()
+      let messageRef = firebase.database().ref('messages').push()
+      let createdAt = this.timestamp()
 
-        // 保存する
-        let chat = this.chatRef.key
-        messageRef.set({
-            chat: chat
-            , message:this.message
-            , userName: this.userName
-            , userId: this.userId
-            , createdAt: createdAt
-            , createdAtReverse: -createdAt
-        })
-
-        // 入力エリアリセット
-        this.message = ""
-    }
-
-    // メッセージを読み込む
-    , loadMessage:function(){
+      let chat = this.chatRef.key
+      messageRef.set({
+          chat: chat
+          , message:this.message
+          , userName: this.userName
+          , userId: this.userId
+          , createdAt: createdAt
+          , createdAtReverse: -createdAt
+      })
+      this.message = ""
+    },
+    loadMessage:function(){
         let chatKey = this.chatRef.key
         let loadRef = firebase.database().ref("messages").orderByChild("chat").equalTo(chatKey)
 
-        // 最初に全部取ってくる
         loadRef.once('value').then((snapshot) => {
 
             var messageList = []            
@@ -128,87 +98,74 @@ export default {
                 data.key = childSnapshot.key
                 messageList.push(data)
             })
-
-            // 日付でソート
             messageList.sort(function(a,b){
                 if( a.createdAt < b.createdAt ) return -1;
                 if( a.createdAt > b.createdAt ) return 1;
                 return 0;
             });
 
-            // 表示に反映
             this.messageList = messageList
-
-            // 追加の監視
             this.observeMessage()
-
-            // 下までスクロール
             this.scrollToBottom()
         });
     },
-
-    // メッセージの監視
     observeMessage: function(){
-        let chatKey = this.chatRef.key
-        let chatRef = firebase.database().ref("messages").orderByChild("chat").equalTo(chatKey)
-        chatRef.on("child_added", (snapshot) => {
-            let newMessage = snapshot.val()
-            newMessage.key = snapshot.key
-            for(var i=0,max=this.messageList.length;i<max;i++) {
-                let message = this.messageList[i]
-                if(message.key == newMessage.key){
-                    return
-                }
-            }
-
-            // 表示に反映
-            this.messageList.push(newMessage)
-            this.scrollToBottom()
-        })
+      let chatKey = this.chatRef.key
+      let chatRef = firebase.database().ref("messages").orderByChild("chat").equalTo(chatKey)
+      chatRef.on("child_added", (snapshot) => {
+        let newMessage = snapshot.val()
+        newMessage.key = snapshot.key
+        for(var i=0,max=this.messageList.length;i<max;i++) {
+          let message = this.messageList[i]
+          if(message.key == newMessage.key){
+            return
+          }
+        }
+        this.messageList.push(newMessage)
+        this.scrollToBottom()
+      })
     },
 
-    // 下までスクロール
     scrollToBottom :function() {
-        setTimeout(()=>{
-            let height = Math.max(0, document.body.scrollHeight - document.body.clientHeight)
-            anime({
-                targets: "body",
-                scrollTop: height,
-                duration: 200,
-                easing: "easeInQuad"
-            });
-        }, 100)
+      setTimeout(()=>{
+        let height = Math.max(0, document.body.scrollHeight - document.body.clientHeight)
+        anime({
+          targets: "body",
+          scrollTop: height,
+          duration: 200,
+          easing: "easeInQuad"
+        });
+      }, 100)
     },
 
-    // おれのメッセージ？
     isMyMessage: function(message){
-        return this.userId == message.userId
+      return this.userId == message.userId
     },
 
     displayTime: function(message) {
-        let timestamp = message.createdAt * 1000
-        var date = new Date(timestamp)
-        var diff = new Date().getTime() - date.getTime()
-        var d = new Date(diff);
+      let timestamp = message.createdAt * 1000
+      var date = new Date(timestamp)
+      var diff = new Date().getTime() - date.getTime()
+      var d = new Date(diff);
 
-        if (d.getUTCFullYear() - 1970) {
-            return d.getUTCFullYear() - 1970 + '年前'
-        } else if (d.getUTCMonth()) {
-            return d.getUTCMonth() + 'ヶ月前'
-        } else if (d.getUTCDate() - 1) {
-            return d.getUTCDate() - 1 + '日前'
-        } else if (d.getUTCHours()) {
-            return d.getUTCHours() + '時間前'
-        } else if (d.getUTCMinutes()) {
-            return d.getUTCMinutes() + '分前'
-        } else {
-            return d.getUTCSeconds() + '秒前'
-        }
+      if (d.getUTCFullYear() - 1970) {
+        return d.getUTCFullYear() - 1970 + '年前'
+      } else if (d.getUTCMonth()) {
+        return d.getUTCMonth() + 'ヶ月前'
+      } else if (d.getUTCDate() - 1) {
+        return d.getUTCDate() - 1 + '日前'
+      } else if (d.getUTCHours()) {
+        return d.getUTCHours() + '時間前'
+      } else if (d.getUTCMinutes()) {
+        return d.getUTCMinutes() + '分前'
+      } else {
+        return d.getUTCSeconds() + '秒前'
+      }
     },
     timestamp: function(){
-        let date = new Date()
-        let timestamp = date.getTime()
-        return Math.floor( timestamp / 1000 )
+      let date = new Date()
+      let timestamp = date.getTime()
+      return Math.floor( timestamp / 1000 )
     }
   },
 }

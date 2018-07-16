@@ -89,7 +89,9 @@ export default {
 			if (user) {
 				this.isLogin = true;
         this.userData = user;
+        window.user = user
         localStorage['username'] = user.displayName;
+        localStorage['uid'] = user.uid;
 			} else {
 				this.isLogin = false;
         this.userData = null;
