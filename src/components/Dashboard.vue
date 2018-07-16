@@ -46,6 +46,7 @@
 </template>
 　
 <script>
+import moment from 'moment'
 export default {
   name: 'dashboard',
   props: ['user'],
@@ -69,8 +70,10 @@ export default {
     setupChat: function(){
       let hash = location.hash
       let ref = firebase.database().ref('chats')
-      if(hash != null || hash.length == 0){
-        hash = '20180716'
+      if(hash != null && hash.length > 0){
+        hash = hash.slice( 1 )
+      } else {
+        hash = moment().format('YYYYMMDD')
         location.hash = hash
       }
       this.chatRef = ref.child(hash)

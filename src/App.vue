@@ -22,7 +22,6 @@ import Home from './components/Home.vue';
 import Dashboard from './components/Dashboard.vue';
 import moment from 'moment'
 
-let remain = '1,397'
 export default {
   name: 'app',
   data () {
@@ -31,7 +30,7 @@ export default {
       isLogin: false,
       userData: null,
       targetDateStr: null,
-      remain: remain,
+      remain: null,
     }
   },
   components: {
@@ -39,24 +38,27 @@ export default {
     'Home': Home,
     'Dashboard': Dashboard,
   },
-	created: function() {
+  created: function() {
+    var targetKey = location.hash.slice(1)
+    this.targetDateStr = moment(targetKey).format('YYYY年MM月DD日');
+    var goal = parseInt(moment('20220522').format('x'))
+    var target  = parseInt(moment(targetKey).format('x'))
+    this.remain = parseInt((goal - target)/(24 * 60 * 60 * 1000))
 
-    this.targetDateStr = moment().format('YYYY年MM月DD日');
-
-		firebase.auth().onAuthStateChanged(user => {
-			console.log(user);
-			if (user) {
-				this.isLogin = true;
+    firebase.auth().onAuthStateChanged(user => {
+      console.log(user);
+      if (user) {
+        this.isLogin = true;
         this.userData = user;
         window.user = user
         localStorage['username'] = user.displayName;
         localStorage['uid'] = user.uid;
-			} else {
-				this.isLogin = false;
+      } else {
+        this.isLogin = false;
         this.userData = null;
-			};
-		});
-	},
+      };
+    });
+  },
   // 処理
   methods: {
   }
