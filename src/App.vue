@@ -21,8 +21,6 @@ import Visions from './components/Visions.vue';
 import Home from './components/Home.vue';
 import Dashboard from './components/Dashboard.vue';
 
-let now_at = 'aaa'
-let remain = '1,397'
 
 export default {
   name: 'app',
@@ -31,8 +29,6 @@ export default {
       msg: '2022年5月11日。水曜日。',
       isLogin: false,
       userData: null,
-      now_at: now_at,
-      remain: remain,
     }
   },
   components: {
