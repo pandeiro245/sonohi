@@ -1,8 +1,16 @@
 <template>
 <div id="app">
-<img src="https://ruffnote.com/attachments/56117" width="320px" />
+<a href='/'><img src="https://ruffnote.com/attachments/56117" width="320px" /></a>
 <h1>{{ msg }}</h1>
-<p>あと{{remain}}日00時間00分00秒。</p>
+<p>2018年7月16日からあと{{remain}}日。</p>
+<ul>
+<a href='#20180715'><<前の日</a>
+<a href='#20180715'>次の日>></a>
+<a href='#20180715'><<前の月</a>
+<a href='#20180715'>次の月>></a>
+<a href='#20180715'><<前の年</a>
+<a href='#20180715'>次の年>></a>
+</ul>
 <p>このサイトは西小倉宏信が<br>その日までに3つの目標を達成するために<br />
 たくさんの人を巻き込むことを目的としています。</p>
 

@@ -5,7 +5,7 @@
 
 <h3>どんな機能が欲しい？ここのチャットで話しましょう…！</h3>
 <div id="message-contents">
-<!-- ▼メッセージ一個ぶんの表示 -->
+
 <div v-for="message in messageList" class="message-wrapper is-clearfix">
 <div class="box" v-bind:class="{'mymessage' : isMyMessage(message) }">
 <div class="content">
@@ -17,10 +17,9 @@
 </div>
 </div>
 </div>
-<!-- ▲メッセージ一個ぶんの表示 -->
+
 </div>
 
-<!-- ▼メッセージ入力部分 -->
 <footer>
 <div class="field is-grouped">
 <div class="control is-expanded">
@@ -31,7 +30,6 @@
 </div>
 </div>
 </footer>
-<!-- ▲メッセージ入力部分 -->
 
 </div>
 </template>
