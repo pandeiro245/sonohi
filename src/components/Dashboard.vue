@@ -43,7 +43,7 @@ export default {
   data () {
     return {
       message: "",
-      userName: 'hoge user name',
+      userName: localStorage['username'],
       userId: Math.random().toString(36).slice(-8),
       messageList: [],
       developerName: "nakadoriBooks",
@@ -64,28 +64,29 @@ export default {
         let ref = firebase.database().ref('chats')
         let hash = location.hash
 
+        this.chatRef = ref.child('-LHWNhpfYW2ak1lGRHK-')
         // chatId があったとき
-        if(hash != null && hash.length > 0){
-            let chatId = hash.slice( 1 ) ;
-            this.chatRef = ref.child(chatId)
-            console.log("read chat", chatId)
-        }
+        // if(hash != null && hash.length > 0){
+        //     let chatId = hash.slice( 1 ) ;
+        //     this.chatRef = ref.child(chatId)
+        //     console.log("read chat", chatId)
+        // }
         // なかったとき
-        else{
-            let createdAt = this.timestamp()
+        // else{
+        //     let createdAt = this.timestamp()
 
-            // 新しいチャットを作って
-            this.chatRef = ref.push()
+        //     // 新しいチャットを作って
+        //     this.chatRef = ref.push()
 
-            // 保存する
-            this.chatRef.set({
-                createdAt: createdAt
-                , createdAtReverse: -createdAt
-            })
+        //     // 保存する
+        //     this.chatRef.set({
+        //         createdAt: createdAt
+        //         , createdAtReverse: -createdAt
+        //     })
 
-            location.href = location.origin + location.pathname + "#" + this.chatRef.key
-            console.log("create chat", this.chatRef.key)
-        }
+        //     location.href = location.origin + location.pathname + "#" + this.chatRef.key
+        //     console.log("create chat", this.chatRef.key)
+        // }
     },
 
     // メッセージを送る
@@ -209,8 +210,6 @@ export default {
         let timestamp = date.getTime()
         return Math.floor( timestamp / 1000 )
     }
-
-
   },
 }
 </script>
