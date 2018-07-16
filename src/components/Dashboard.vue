@@ -3,12 +3,14 @@
 
 <p>ようこそ{{user.displayName}}さん</p>
 <ul>
-<a href='#20180715'><<前の日</a>
-<a href='#20180715'>次の日>></a>
+<a  v-bind:href='previousDayUrl' @click="goPreviousDay"><<前の日</a>
+<a  v-bind:href='nextDayUrl' @click="goNextDay">次の日>></a>
+<!--
 <a href='#20180715'><<前の月</a>
 <a href='#20180715'>次の月>></a>
 <a href='#20180715'><<前の年</a>
 <a href='#20180715'>次の年>></a>
+-->
 </ul>
 
 
@@ -53,12 +55,17 @@ export default {
   data () {
     return {
       message: "",
+      userName = this.user.displayName;
+      userId   = this.user.uid;
       userName: localStorage['username'],
       userId: localStorage['uid'],
       messageList: [],
+      nextDayUrl: '',
+      previousDayUrl: '',
     }
   },
   created: function(){
+    this.setupDays()
     this.setupChat()
     this.loadMessage()
   },
@@ -66,7 +73,26 @@ export default {
     logout: function() {
       firebase.auth().signOut();
     },
+    setupDays: function(){
+      var targetKey = location.hash.slice(1)
+      var target = moment(targetKey)
+      this.nextDayUrl = '#' + target.add(1, 'days').format('YYYYMMDD')
+      this.previousDayUrl = '#' + target.subtract(1, 'days').format('YYYYMMDD')
+    },
+    goNextDay: function(message, event){
+      message.target.hash.slice(1)
 
+      this.setupDays()
+      this.setupChat()
+      this.loadMessage()
+    },
+    goPreviousDay: function(message, event){
+      message.target.hash.slice(1)
+      if (event) event.preventDefault()
+      this.setupDays()
+      this.setupChat()
+      this.loadMessage()
+    },
     setupChat: function(){
       let hash = location.hash
       let ref = firebase.database().ref('chats')
