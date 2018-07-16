@@ -1,8 +1,16 @@
 <template>
 <div id="app">
-<img src="https://ruffnote.com/attachments/56117" width="320px" />
+<a href='/'><img src="https://ruffnote.com/attachments/56117" width="320px" /></a>
 <h1>{{ msg }}</h1>
-<p>あと{{remain}}日00時間00分00秒。</p>
+<p>2018年7月16日からあと{{remain}}日。</p>
+<ul>
+<a href='#20180715'><<前の日</a>
+<a href='#20180715'>次の日>></a>
+<a href='#20180715'><<前の月</a>
+<a href='#20180715'>次の月>></a>
+<a href='#20180715'><<前の年</a>
+<a href='#20180715'>次の年>></a>
+</ul>
 <p>このサイトは西小倉宏信が<br>その日までに3つの目標を達成するために<br />
 たくさんの人を巻き込むことを目的としています。</p>
 
@@ -10,14 +18,12 @@
 <h3>1. 10万人からの「ありがとう」を集める</h3>
 <table class='table table-bordered'>
 <tr>
-<th>2018</th>
 <th>2019</th>
 <th>2020</th>
 <th>2021</th>
 <th>2022</th>
 </tr>
 <tr>
-<td>0 / 10,000</td>
 <td>0 / 20,000</td>
 <td>0 / 40,000</td>
 <td>0 / 60,000</td>
@@ -28,7 +34,6 @@
 <p>雇用形態（正社員・業務委託）は問わない</p>
 <table class='table table-bordered'>
 <tr>
-<th>2018</th>
 <th>2019</th>
 <th>2020</th>
 <th>2021</th>
@@ -36,29 +41,26 @@
 
 </tr>
 <tr>
-<td>0</td>
-<td>3</td>
-<td>30</td>
-<td>70</td>
-<td>100</td>
+<td>0 / 3</td>
+<td>0 / 30</td>
+<td>0 / 70</td>
+<td>0 / 100</td>
 </tr>
 </table>
 
 <h3>3. 47都道府県に拠点を持つ</h3>
 <table class='table table-bordered'>
 <tr>
-<th>2018</th>
 <th>2019</th>
 <th>2020</th>
 <th>2021</th>
 <th>2022</th>
 </tr>
 <tr>
-<td>5</td>
-<td>10</td>
-<td>30</td>
-<td>40</td>
-<td>47</td>
+<td>4 / 10</td>
+<td>4 / 30</td>
+<td>4 / 40</td>
+<td>4 / 47</td>
 </tr>
 </table>
 
@@ -82,7 +84,7 @@ export default {
       isLogin: false,
       userData: null,
       now_at: now_at,
-      remain: remain 
+      remain: remain,
     }
   },
   components: {
@@ -95,12 +97,18 @@ export default {
 			if (user) {
 				this.isLogin = true;
         this.userData = user;
+        window.user = user
+        localStorage['username'] = user.displayName;
+        localStorage['uid'] = user.uid;
 			} else {
 				this.isLogin = false;
         this.userData = null;
 			};
 		});
-	}
+	},
+  // 処理
+  methods: {
+  }
 }
 </script>
 
