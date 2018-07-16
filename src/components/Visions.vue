@@ -54,12 +54,10 @@
 </template>
 
 <script>
-  let remain = '1,397'
   export default {
     name: 'visions',
     data () {
       return {
-        remain: remain,
       }
     }
 

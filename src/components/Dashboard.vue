@@ -2,7 +2,6 @@
 <div class="dashboard">
 
 <p>ようこそ{{user.displayName}}さん</p>
-<p>2018年7月16日からあと{{remain}}日。</p>
 <ul>
 <a href='#20180715'><<前の日</a>
 <a href='#20180715'>次の日>></a>
