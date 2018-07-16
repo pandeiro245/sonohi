@@ -10,14 +10,12 @@
 <h3>1. 10万人からの「ありがとう」を集める</h3>
 <table class='table table-bordered'>
 <tr>
-<th>2018</th>
 <th>2019</th>
 <th>2020</th>
 <th>2021</th>
 <th>2022</th>
 </tr>
 <tr>
-<td>0 / 10,000</td>
 <td>0 / 20,000</td>
 <td>0 / 40,000</td>
 <td>0 / 60,000</td>
@@ -28,7 +26,6 @@
 <p>雇用形態（正社員・業務委託）は問わない</p>
 <table class='table table-bordered'>
 <tr>
-<th>2018</th>
 <th>2019</th>
 <th>2020</th>
 <th>2021</th>
@@ -36,29 +33,26 @@
 
 </tr>
 <tr>
-<td>0</td>
-<td>3</td>
-<td>30</td>
-<td>70</td>
-<td>100</td>
+<td>0 / 3</td>
+<td>0 / 30</td>
+<td>0 / 70</td>
+<td>0 / 100</td>
 </tr>
 </table>
 
 <h3>3. 47都道府県に拠点を持つ</h3>
 <table class='table table-bordered'>
 <tr>
-<th>2018</th>
 <th>2019</th>
 <th>2020</th>
 <th>2021</th>
 <th>2022</th>
 </tr>
 <tr>
-<td>5</td>
-<td>10</td>
-<td>30</td>
-<td>40</td>
-<td>47</td>
+<td>4 / 10</td>
+<td>4 / 30</td>
+<td>4 / 40</td>
+<td>4 / 47</td>
 </tr>
 </table>
 
@@ -82,7 +76,7 @@ export default {
       isLogin: false,
       userData: null,
       now_at: now_at,
-      remain: remain 
+      remain: remain,
     }
   },
   components: {
@@ -100,7 +94,10 @@ export default {
         this.userData = null;
 			};
 		});
-	}
+	},
+  // 処理
+  methods: {
+  }
 }
 </script>
 
