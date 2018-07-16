@@ -1,7 +1,17 @@
 <template>
 <div class="dashboard">
-ようこそ{{user.displayName}}さん
-<button @click="logout"> ログアウト</button>
+
+<p>ようこそ{{user.displayName}}さん</p>
+<p>2018年7月16日からあと{{remain}}日。</p>
+<ul>
+<a href='#20180715'><<前の日</a>
+<a href='#20180715'>次の日>></a>
+<a href='#20180715'><<前の月</a>
+<a href='#20180715'>次の月>></a>
+<a href='#20180715'><<前の年</a>
+<a href='#20180715'>次の年>></a>
+</ul>
+
 
 <h3>どんな機能が欲しい？ここのチャットで話しましょう…！</h3>
 <div id="message-contents">
@@ -31,6 +41,8 @@
 </div>
 </footer>
 
+<hr>
+<button @click="logout"> ログアウト</button>
 </div>
 </template>
 　
