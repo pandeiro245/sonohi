@@ -2,24 +2,25 @@
 <div id="app">
 <a href='/'><img src="https://ruffnote.com/attachments/56117" width="320px" /></a>
 <h1>{{ msg }}</h1>
-<p>{{ targetDateStr }}からあと{{remain}}日。</p>
+<Countdown :targetDateStr='targetDateStr' :remain='remain'></Countdown>
+<!--
 <p>このサイトは西小倉宏信が<br>その日までに3つの目標を達成するために<br />
 たくさんの人を巻き込むことを目的としています。</p>
-
-
+-->
 
 <Home v-if="!isLogin"></Home>
 <Dashboard v-if="isLogin" :user="userData"></Dashboard>
-<Visions></Visions>
+<!--<Visions></Visions>-->
 
 </div>
 
 </template>
 
 <script>
-import Visions from './components/Visions.vue';
+import Countdown from './components/Countdown.vue';
 import Home from './components/Home.vue';
 import Dashboard from './components/Dashboard.vue';
+import Visions from './components/Visions.vue';
 import moment from 'moment'
 
 export default {
@@ -34,15 +35,21 @@ export default {
     }
   },
   components: {
+    'Countdown': Countdown,
     'Visions': Visions,
     'Home': Home,
     'Dashboard': Dashboard,
   },
   created: function() {
     var targetKey = location.hash.slice(1)
-    this.targetDateStr = moment(targetKey).format('YYYY年MM月DD日');
+    if(targetKey.length == 0){
+      location.hash = moment().format('YYYYMMDD')
+      targetKey = location.hash.slice(1)
+    }
+    var date = moment(targetKey)
+    this.targetDateStr = date.format('YYYY年MM月DD日');
     var goal = parseInt(moment('20220522').format('x'))
-    var target  = parseInt(moment(targetKey).format('x'))
+    var target  = parseInt(date.format('x'))
     this.remain = parseInt((goal - target)/(24 * 60 * 60 * 1000))
 
     firebase.auth().onAuthStateChanged(user => {

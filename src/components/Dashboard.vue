@@ -55,13 +55,11 @@ export default {
   data () {
     return {
       message: "",
-      userName = this.user.displayName;
-      userId   = this.user.uid;
-      userName: localStorage['username'],
-      userId: localStorage['uid'],
+      userName: this.user.displayName,
+      userId:   this.user.uid,
       messageList: [],
-      nextDayUrl: '',
       previousDayUrl: '',
+      nextDayUrl: '',
     }
   },
   created: function(){
@@ -75,9 +73,8 @@ export default {
     },
     setupDays: function(){
       var targetKey = location.hash.slice(1)
-      var target = moment(targetKey)
-      this.nextDayUrl = '#' + target.add(1, 'days').format('YYYYMMDD')
-      this.previousDayUrl = '#' + target.subtract(1, 'days').format('YYYYMMDD')
+      this.previousDayUrl = '#' + moment(targetKey).subtract(1, 'days').format('YYYYMMDD')
+      this.nextDayUrl = '#' + moment(targetKey).add(1, 'days').format('YYYYMMDD')
     },
     goNextDay: function(message, event){
       message.target.hash.slice(1)
@@ -88,7 +85,6 @@ export default {
     },
     goPreviousDay: function(message, event){
       message.target.hash.slice(1)
-      if (event) event.preventDefault()
       this.setupDays()
       this.setupChat()
       this.loadMessage()
