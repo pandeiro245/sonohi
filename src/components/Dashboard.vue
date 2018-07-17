@@ -13,8 +13,9 @@
 -->
 </ul>
 
-
+<!--
 <h3>どんな機能が欲しい？ここのチャットで話しましょう…！</h3>
+-->
 <div id="message-contents">
 
 <div v-for="message in messageList" class="message-wrapper is-clearfix">
@@ -34,7 +35,7 @@
 <footer>
 <div class="field is-grouped">
 <div class="control is-expanded">
-<input v-model="message" v-on:keydown.enter="send" class="input is-medium" type="text" placeholder="Message" />
+<input v-model="message" v-on:keypress.enter="send" class="input is-medium" type="text" placeholder="Message" />
 </div>
 <div class="control control-submit">
 <button v-bind:disabled="message.length==0" v-on:click="send" class="button is-primary button-submit">送信</button>
@@ -42,7 +43,6 @@
 </div>
 </footer>
 
-<hr>
 <button @click="logout"> ログアウト</button>
 </div>
 </template>
