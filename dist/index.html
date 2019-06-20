@@ -12,29 +12,133 @@
 
 <meta charset="utf-8">
 <title>2022年5月11日。水曜日。</title>
-<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.0/css/bulma.min.css">
 <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
+<style>
+
+@font-face {
+  font-family: 'tameshigaki';
+  src: url('https://nabettu.github.io/fonts/mamelonfont.woff2');
+}
+
+* {
+  font-family: 'tameshigaki';
+}
+
+
+/**
+ primaryColor: #00d1b2
+**/
+
+header{
+  position:fixed;
+  width:100%;
+  background:#00d1b2;
+  z-index:2;
+  height:55px;
+}
+
+#app header h1{
+  padding-left:10px;
+  padding-top:8px;
+  color:#ffffff;
+}
+
+.chaturl{
+  padding-left:10px;
+}
+
+.chaturl a{
+  color:#ffffff;
+  font-size:14px;
+}
+
+.chaturl a:hover{
+  text-decoration: underline;
+}
+
+footer{
+  position:fixed;
+  bottom:0px;
+  width:100%;
+  height:66px;
+  border-top:1px solid #aaaaaa;
+  background:#ffffff;
+}
+
+footer .field{
+  padding:10px;
+}
+
+.button-submit{
+  height:45px;
+  line-height:1.0;
+  width:100%;
+}
+
+.control-submit{
+  width:20%;
+}
+
+#message-contents{
+  z-index:1;
+  padding: 55px 10px 76px 10px;
+  background:#ffffff;
+}
+
+.message-wrapper{
+  margin:20px 10px;
+}
+
+.message-wrapper .box{
+  float:left;
+}
+.message-wrapper .box.mymessage{
+  float:right;
+}
+
+.mymessage p{
+  text-align: right;
+}
+
+#qrImageIcon{
+  float:right;
+  width:45px;
+  margin:5px;
+}
+
+#qrImage{
+  position: fixed;
+  right: 0px;
+  top:55px;
+  display:none;
+}
+#qrImage.showedQr{
+  display:block;
+}
+
+
+</style>
 </head>
 <body>
 <div id="app"></div>
-
-
 
 <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
 <script>
   // Initialize Firebase
   var config = {
-    apiKey: "AIzaSyB9CRE2NETGHEpdAowdd7VFRJ-yu-4NLuY",
-    authDomain: "on20220511.firebaseapp.com",
-    databaseURL: "https://on20220511.firebaseio.com",
-    projectId: "on20220511",
-    storageBucket: "on20220511.appspot.com",
-    messagingSenderId: "357121353706"
+		apiKey: "AIzaSyB9CRE2NETGHEpdAowdd7VFRJ-yu-4NLuY",
+		authDomain: "on20220511.firebaseapp.com",
+		databaseURL: "https://on20220511.firebaseio.com",
+		projectId: "on20220511",
+		storageBucket: "on20220511.appspot.com",
+		messagingSenderId: "357121353706"
   };
   firebase.initializeApp(config);
 </script>
 
-<script src="/build.js?v=10"></script>
+<script src="/build.js?v=11"></script>
 <script src="//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
 <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.js"></script>

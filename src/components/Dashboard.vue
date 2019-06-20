@@ -1,9 +1,21 @@
 <template>
 <div class="dashboard">
-ようこそ{{user.displayName}}さん
-<button @click="logout"> ログアウト</button>
 
+<p>ようこそ{{user.displayName}}さん</p>
+<ul>
+<a  v-bind:href='previousDayUrl' @click="goPreviousDay"><<前の日</a>
+<a  v-bind:href='nextDayUrl' @click="goNextDay">次の日>></a>
+<!--
+<a href='#20180715'><<前の月</a>
+<a href='#20180715'>次の月>></a>
+<a href='#20180715'><<前の年</a>
+<a href='#20180715'>次の年>></a>
+-->
+</ul>
+
+<!--
 <h3>どんな機能が欲しい？ここのチャットで話しましょう…！</h3>
+-->
 <div id="message-contents">
 
 <div v-for="message in messageList" class="message-wrapper is-clearfix">
@@ -23,7 +35,7 @@
 <footer>
 <div class="field is-grouped">
 <div class="control is-expanded">
-<input v-model="message" v-on:keydown.enter="send" class="input is-medium" type="text" placeholder="Message" />
+<input v-model="message" v-on:keypress.enter="send" class="input is-medium" type="text" placeholder="Message" />
 </div>
 <div class="control control-submit">
 <button v-bind:disabled="message.length==0" v-on:click="send" class="button is-primary button-submit">送信</button>
@@ -31,22 +43,27 @@
 </div>
 </footer>
 
+<button @click="logout"> ログアウト</button>
 </div>
 </template>
 　
 <script>
+import moment from 'moment'
 export default {
   name: 'dashboard',
   props: ['user'],
   data () {
     return {
       message: "",
-      userName: localStorage['username'],
-      userId: localStorage['uid'],
+      userName: this.user.displayName,
+      userId:   this.user.uid,
       messageList: [],
+      previousDayUrl: '',
+      nextDayUrl: '',
     }
   },
   created: function(){
+    this.setupDays()
     this.setupChat()
     this.loadMessage()
   },
@@ -54,12 +71,31 @@ export default {
     logout: function() {
       firebase.auth().signOut();
     },
+    setupDays: function(){
+      var targetKey = location.hash.slice(1)
+      this.previousDayUrl = '#' + moment(targetKey).subtract(1, 'days').format('YYYYMMDD')
+      this.nextDayUrl = '#' + moment(targetKey).add(1, 'days').format('YYYYMMDD')
+    },
+    goNextDay: function(message, event){
+      message.target.hash.slice(1)
 
+      this.setupDays()
+      this.setupChat()
+      this.loadMessage()
+    },
+    goPreviousDay: function(message, event){
+      message.target.hash.slice(1)
+      this.setupDays()
+      this.setupChat()
+      this.loadMessage()
+    },
     setupChat: function(){
       let hash = location.hash
       let ref = firebase.database().ref('chats')
-      if(hash != null || hash.length == 0){
-        hash = '20180716'
+      if(hash != null && hash.length > 0){
+        hash = hash.slice( 1 )
+      } else {
+        hash = moment().format('YYYYMMDD')
         location.hash = hash
       }
       this.chatRef = ref.child(hash)

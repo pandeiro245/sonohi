@@ -1,10 +1,10 @@
 <template>
   <div id="home">
   <h3>{{ msg }}</h3>
-  <button @click="googleLogin">Google</button>
-  <button @click="twitterLogin">Twitter</button>
-  <!--<button @click="githubLogin">GitHub</button>-->
-  <button @click="facebookLogin">Facebook</button>
+  <button @click="googleLogin" class='btn'>Google</button>
+  <button @click="twitterLogin" class='btn'>Twitter</button>
+  <!--<button @click="githubLogin" class='btn'>GitHub</button>-->
+  <button @click="facebookLogin" class='btn'>Facebook</button>
   </div>
 </template>
 <script>
@@ -12,7 +12,7 @@
   name: 'home',
   data () {
     return {
-      msg: 'ログインして巻き込まれてみる'
+      msg: 'ログイン'
     }
   },
   methods: {
